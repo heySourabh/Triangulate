@@ -11,7 +11,7 @@ from node import Node
 from triangle import Triangle
 
 
-def main():
+def test():
     p1 = Point(-7.1, 5.2)
     p2 = Point(1.5, 2.8)
     p3 = Point(-8.1, -1)
@@ -72,4 +72,4 @@ def draw_triangle(triangle: Triangle, show_edges=True, show_nodes=False, show_ci
 
 
 if __name__ == "__main__":
-    main()
+    test()

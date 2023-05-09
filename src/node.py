@@ -3,7 +3,10 @@
 
 import numpy as np
 from point import Point
-from triangle import Triangle
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from triangle import Triangle
 
 
 class Node:
