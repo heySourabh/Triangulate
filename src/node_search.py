@@ -5,8 +5,8 @@ import unittest
 from typing import Union
 
 import numpy as np
-from point import Point
-from node import Node
+from geom.point import Point
+from geom.node import Node
 
 
 class NodeSearchTree:

@@ -6,9 +6,9 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from point import Point
-from node import Node
-from triangle import Triangle
+from geom.point import Point
+from geom.node import Node
+from geom.triangle import Triangle
 
 
 def test():

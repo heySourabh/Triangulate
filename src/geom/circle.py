@@ -1,7 +1,7 @@
 # Created on: May 8, 2023
 # Author    : Sourabh Bhat <https://spbhat.in>
 
-from point import Point
+from geom.point import Point
 
 
 class Circle:

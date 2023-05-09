@@ -3,9 +3,9 @@
 
 import numpy as np
 
-from circle import Circle
-from point import Point
-from node import Node
+from geom.circle import Circle
+from geom.point import Point
+from geom.node import Node
 
 
 class Triangle:
