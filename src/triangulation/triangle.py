@@ -5,7 +5,7 @@ import numpy as np
 
 from geom.circle import Circle
 from geom.point import Point
-from geom.node import Node
+from triangulation.node import Node
 
 
 class Triangle:

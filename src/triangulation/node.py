@@ -6,7 +6,7 @@ from geom.point import Point
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from geom.triangle import Triangle
+    from triangulation.triangle import Triangle
 
 
 class Node:

@@ -7,11 +7,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from geom.point import Point
-from geom.node import Node
-from geom.triangle import Triangle
+from triangulation.node import Node
+from triangulation.triangle import Triangle
 
 
-def test():
+def test_triangle():
     p1 = Point(-7.1, 5.2)
     p2 = Point(1.5, 2.8)
     p3 = Point(-8.1, -1)
@@ -72,4 +72,4 @@ def draw_triangle(triangle: Triangle, show_edges=True, show_nodes=False, show_ci
 
 
 if __name__ == "__main__":
-    test()
+    test_triangle()

@@ -6,7 +6,7 @@ from typing import Union
 
 import numpy as np
 from geom.point import Point
-from geom.node import Node
+from triangulation.node import Node
 
 
 class NodeSearchTree:
