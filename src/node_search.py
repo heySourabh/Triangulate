@@ -8,25 +8,25 @@ import numpy as np
 from point import Point
 from node import Node
 
-_root: Union[None, "Cell"] = None
 
+class NodeSearchTree:
+    def __init__(self) -> None:
+        self._root: Union[None, "Cell"] = None
 
-def add_node(node: Node):
-    global _root
-    if _root == None:
-        _root = Cell(node)
-        return
+    def add_node(self, node: Node):
+        if self._root == None:
+            self._root = Cell(node)
+            return
 
-    _root.add_node(node)
+        self._root.add_node(node)
 
+    def search_node(self, point: Point) -> Node:
+        if self._root == None:
+            raise RuntimeError(
+                "Node not added yet. Please add nodes before searching.")
 
-def search_node(point: Point) -> Node:
-    if _root == None:
-        raise RuntimeError(
-            "Node not added yet. Please add nodes before searching.")
-
-    pt_array = np.array([point.x, point.y])
-    return _root.search(pt_array).node
+        pt_array = np.array([point.x, point.y])
+        return self._root.search(pt_array).node
 
 
 overlap_eps = 1e-12
@@ -91,28 +91,26 @@ class Cell:
 
 class TestNodeSearch(unittest.TestCase):
 
-    def test_root_is_None_by_default(self):
-        self.assertIsNone(_root)
-
-    def test__raises_error_if_searching_empty_tree(self):
+    def test_raises_error_if_searching_empty_tree(self):
+        tree = NodeSearchTree()
         with self.assertRaises(RuntimeError):
-            search_node(Point(1, 1))
+            tree.search_node(Point(1, 1))
 
     def test_search(self):
+        tree = NodeSearchTree()
         node1 = Node(0, Point(1, 1))
-        add_node(node1)
+        tree.add_node(node1)
 
-        self.assertIsNotNone(_root)
-        self.assertEquals(search_node(Point(0, 1)), node1)
+        self.assertEquals(tree.search_node(Point(0, 1)), node1)
 
         node2 = Node(1, Point(0, 0))
-        add_node(node2)
+        tree.add_node(node2)
 
-        self.assertEquals(search_node(Point(0.51, 0.51)), node1)
-        self.assertEquals(search_node(Point(0.49, 0.49)), node2)
+        self.assertEquals(tree.search_node(Point(0.51, 0.51)), node1)
+        self.assertEquals(tree.search_node(Point(0.49, 0.49)), node2)
 
-        self.assertEquals(search_node(Point(1.1, 1.5)), node1)
-        self.assertEquals(search_node(Point(0.1, -5)), node2)
+        self.assertEquals(tree.search_node(Point(1.1, 1.5)), node1)
+        self.assertEquals(tree.search_node(Point(0.1, -5)), node2)
 
 
 if __name__ == "__main__":
