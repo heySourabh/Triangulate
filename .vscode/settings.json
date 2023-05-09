@@ -1,0 +1,14 @@
+{
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "editor.wordWrapColumn": 120,
+    "editor.rulers": [
+        120
+    ],
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120"
+    ]
+
+}
