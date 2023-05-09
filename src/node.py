@@ -3,9 +3,11 @@
 
 import numpy as np
 from point import Point
+from triangle import Triangle
 
 
 class Node:
     def __init__(self, index: int, point: Point) -> None:
         self.index = index
         self.point = np.array([point.x, point.y])
+        self.nbrs: list[Triangle] = []
