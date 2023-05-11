@@ -22,17 +22,18 @@ class Triangle:
         self.area = np.abs(area)
 
         self.circumcircle: Circle = Triangle._circumcircle(
-            node1.point, node2.point, node3.point)
+            self.node1.point, self.node2.point, self.node3.point)
 
-    def is_point_in_circumcircle(self, point: Point) -> bool:
-        circle = self.circumcircle
-        c = circle.center
-        r = circle.radius
-        dx = point.x - c.x
-        dy = point.y - c.y
-        return dx*dx + dy*dy < r*r
+        self.node1.nbrs.append(self)
+        self.node2.nbrs.append(self)
+        self.node3.nbrs.append(self)
 
-    def is_point_in_triangle(self, point: Point) -> bool:
+    def remove(self):
+        self.node1.nbrs.remove(self)
+        self.node2.nbrs.remove(self)
+        self.node3.nbrs.remove(self)
+
+    def contains_point(self, point: Point) -> bool:
         p1 = self.node1.point
         p2 = self.node2.point
         p3 = self.node3.point
