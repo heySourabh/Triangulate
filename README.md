@@ -7,9 +7,7 @@ Author:<br>
 
 --- 
 
-Generates incremental Delaunay triangulation with given points as shown below:
+Animation below shows incremental Delaunay triangulation with few randomly generated points:
 
 ![Demo](mesh.gif)
-
-
 
