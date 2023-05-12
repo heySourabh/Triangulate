@@ -25,7 +25,9 @@ def test_triangle():
     plt.show()
 
 
-def draw_triangle(triangle: Triangle, show_edges=True, show_nodes=False, show_circumcircle=False):
+def draw_triangle(triangle: Triangle, show_edges=True,
+                  show_nodes=False, show_circumcircle=False,
+                  highlight=False):
     n1 = triangle.node1.point
     n2 = triangle.node2.point
     n3 = triangle.node3.point
@@ -51,6 +53,10 @@ def draw_triangle(triangle: Triangle, show_edges=True, show_nodes=False, show_ci
         ch_xy = np.array([-ch_size, ch_size])
         plt.plot(c.x + ch_xy, [c.y, c.y], "-", lw=1, color="black")
         plt.plot([c.x, c.x], c.y + ch_xy, "-", lw=1, color="black")
+
+    if highlight:
+        nodes = np.array([n1, n2, n3])
+        plt.fill(nodes[:, 0], nodes[:, 1], color=(1, 0, 0, 0.5))
 
     clicked_point = None
 

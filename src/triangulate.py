@@ -169,17 +169,19 @@ def main(num_nodes):
     # Scale back to original location
     for n in nodes:
         n.point = n.point / scale + np.array([shiftx, shifty])
+    for tri in triangles:
+        tri.update_circumcircle_and_area()
 
     nodes_x, nodes_y = np.array([n.point for n in nodes]).T
     plt.cla()
     plt.plot(nodes_x, nodes_y, "o")
 
     for tri in triangles:
-        draw_triangle(tri, show_circumcircle=False)
+        draw_triangle(tri, show_circumcircle=True)
 
     plt.gca().set_aspect("equal")
-    plt.xlim((10-1, 20+1))
-    plt.ylim((-2-1, 5+1))
+    plt.xlim(np.array([minx, maxx]) + 0.05 * np.array([-1, 1]) * max_dx)
+    plt.ylim(np.array([miny, maxy]) + 0.05 * np.array([-1, 1]) * max_dy)
     # plt.xticks([])
     # plt.yticks([])
     # plt.tight_layout()

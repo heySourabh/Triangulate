@@ -45,6 +45,11 @@ class Triangle:
 
         return s > 0 and t > 0 and (s + t) < 2 * self.area
 
+    def update_circumcircle_and_area(self):
+        self.circumcircle = Triangle._circumcircle(
+            self.node1.point, self.node2.point, self.node3.point)
+        self.area = Triangle._area(self.node1.point, self.node2.point, self.node3.point)
+
     @staticmethod
     def _circumcircle(a: np.ndarray, b: np.ndarray, c: np.ndarray) -> Circle:
         vab = b - a
