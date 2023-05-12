@@ -11,3 +11,5 @@ Animation below shows incremental Delaunay triangulation with few randomly gener
 
 ![Demo](mesh.gif)
 
+![Demo](mesh_cc.gif)
+
