@@ -1,7 +1,6 @@
 # Created on: May 10, 2023
 # Author    : Sourabh Bhat <https://spbhat.in>
 
-from typing import Union
 from matplotlib import pyplot as plt
 import numpy as np
 from geom.point import Point
@@ -13,9 +12,13 @@ from triangulation.triangle import Triangle
 
 overlap_eps = 1e-12
 
+# TODO: 1. Generate mesh for given outer boundaries and inner boundaries (holes)
+#       2. Group boundary edges with same tag/ref
+#       3. Mesh quality control using given criteria / solution / metric
+
 
 def search_triangle(point: Point, nearby_node: Node) -> Triangle:
-    # Needs to be optimized using directional search
+    # TODO: Optimize using directional search
     already_searched_nodes = []
     nodes_to_search = [nearby_node, ]
 
@@ -131,7 +134,9 @@ class Triangulation:
 
 
 def main(num_nodes):
-    np.random.seed(123)
+    seed = np.random.randint(0, 1000)
+    print(f"Random seed = {seed}")
+    np.random.seed(seed)
     # points = [Point(0, 0), Point(0.4, 0), Point(0.4, 0.2), Point(1, 0.2), Point(1, 0.5), Point(0, 0.5)]
     points = [Point(np.random.uniform(10, 20), np.random.uniform(-2, 5)) for _ in range(num_nodes)]
 
@@ -177,7 +182,7 @@ def main(num_nodes):
     plt.plot(nodes_x, nodes_y, "o")
 
     for tri in triangles:
-        draw_triangle(tri, show_circumcircle=True)
+        draw_triangle(tri, show_circumcircle=False)
 
     plt.gca().set_aspect("equal")
     plt.xlim(np.array([minx, maxx]) + 0.05 * np.array([-1, 1]) * max_dx)
