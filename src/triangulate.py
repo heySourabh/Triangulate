@@ -13,9 +13,10 @@ from triangulation.triangle import Triangle
 overlap_eps = 1e-12
 
 # TODO: 1. Generate mesh for given outer boundaries and inner boundaries (holes)
-#       2. Group boundary edges with same tag/ref
-#       3. Mesh quality control using given criteria / solution / metric
-#       4. Further optimize triangulation using directional search method
+#       2. Constrained Delaunay to preserve the boundaries
+#       3. Group boundary edges with same tag/ref
+#       4. Mesh quality control using given criteria / solution / metric
+#       5. Further optimize triangulation using directional search method
 
 
 def search_triangle(point: Point, nearby_node: Node) -> Triangle:
@@ -135,7 +136,7 @@ class Triangulation:
 
 
 def main(num_nodes):
-    seed = np.random.randint(0, 1000)
+    seed = np.random.randint(0, 10000)
     print(f"Random seed = {seed}")
     np.random.seed(seed)
     # points = [Point(0, 0), Point(0.4, 0), Point(0.4, 0.2), Point(1, 0.2), Point(1, 0.5), Point(0, 0.5)]
@@ -168,6 +169,7 @@ def main(num_nodes):
     for px, py in zip(xs, ys):
         triangulation.insert_node(px, py)
     nodes, triangles = triangulation.get_triangulation()
+    print(f"Nodes={len(nodes)}, Triangles={len(triangles)}")
 
     print("Triangulation Done.")
     print("Showing Triangulation...")
