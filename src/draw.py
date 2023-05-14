@@ -26,8 +26,7 @@ def test_triangle():
 
 
 def draw_triangle(triangle: Triangle, show_edges=True,
-                  show_nodes=False, show_circumcircle=False,
-                  highlight=False):
+                  show_nodes=False, show_circumcircle=False):
     n1 = triangle.node1.point
     n2 = triangle.node2.point
     n3 = triangle.node3.point
@@ -54,9 +53,41 @@ def draw_triangle(triangle: Triangle, show_edges=True,
         plt.plot(c.x + ch_xy, [c.y, c.y], "-", lw=1, color="black")
         plt.plot([c.x, c.x], c.y + ch_xy, "-", lw=1, color="black")
 
-    if highlight:
+    clicked_triangle = None
+
+    def highlight_triangle(point):
+        nonlocal clicked_triangle
+        if not triangle.contains_point(point):
+            return
         nodes = np.array([n1, n2, n3])
-        plt.fill(nodes[:, 0], nodes[:, 1], color=(1, 0, 0, 0.5))
+        clicked_triangle = plt.fill(nodes[:, 0], nodes[:, 1], color=(1, 0, 0, 0.5))
+
+    def unhighlight_triangle():
+        nonlocal clicked_triangle
+        if clicked_triangle != None:
+            for t in clicked_triangle:
+                t.remove()
+            clicked_triangle = None
+
+    clicked_circumcircle = None
+
+    def highlight_circumcircle(point):
+        nonlocal clicked_circumcircle
+        if not triangle.contains_point(point):
+            return
+        circle = triangle.circumcircle
+        theta = np.linspace(0, 2*np.pi, 500)
+        c = circle.center
+        r = circle.radius
+        x, y = r * np.array([np.cos(theta), np.sin(theta)])
+        clicked_circumcircle = plt.plot(x + c.x, y + c.y, "--", lw=0.75, color="red")
+
+    def unhighlight_circumcircle():
+        nonlocal clicked_circumcircle
+        if clicked_circumcircle != None:
+            for c in clicked_circumcircle:
+                c.remove()
+            clicked_circumcircle = None
 
     clicked_point = None
 
@@ -64,17 +95,28 @@ def draw_triangle(triangle: Triangle, show_edges=True,
         nonlocal clicked_point
         x, y = event.xdata, event.ydata
         if x == None or y == None:
+            if clicked_point != None:
+                clicked_point.remove()
+                clicked_point = None
+            unhighlight_triangle()
+            unhighlight_circumcircle()
+            plt.draw()
             return
         point = Point(x, y)
         if clicked_point != None:
             clicked_point.remove()
+        if clicked_triangle != None:
+            unhighlight_triangle()
+        if clicked_circumcircle != None:
+            unhighlight_circumcircle()
 
         clicked_point = plt.scatter([x,], [y,], color="red")
-        plt.draw()
-        print(("Inside" if triangle.circumcircle.contains_point(point) else "Outside") + " circumcircle,",
-              ("Inside" if triangle.contains_point(point) else "Outside") + " triangle")
+        highlight_triangle(point)
+        highlight_circumcircle(point)
 
-    #plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+        plt.draw()
+
+    plt.gcf().canvas.mpl_connect('button_press_event', on_click)
 
 
 if __name__ == "__main__":

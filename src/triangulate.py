@@ -4,7 +4,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 from geom.point import Point
-from test import draw_triangle
+from draw import draw_triangle
 from triangulation.edge import Edge
 from triangulation.node import Node
 from triangulation.node_search import NodeSearchTree
@@ -15,6 +15,7 @@ overlap_eps = 1e-12
 # TODO: 1. Generate mesh for given outer boundaries and inner boundaries (holes)
 #       2. Group boundary edges with same tag/ref
 #       3. Mesh quality control using given criteria / solution / metric
+#       4. Further optimize triangulation using directional search method
 
 
 def search_triangle(point: Point, nearby_node: Node) -> Triangle:
@@ -178,6 +179,7 @@ def main(num_nodes):
         tri.update_circumcircle_and_area()
 
     nodes_x, nodes_y = np.array([n.point for n in nodes]).T
+    plt.figure("Triangulation: Programmed by Sourabh Bhat")
     plt.cla()
     plt.plot(nodes_x, nodes_y, "o")
 
@@ -185,6 +187,7 @@ def main(num_nodes):
         draw_triangle(tri, show_circumcircle=False)
 
     plt.gca().set_aspect("equal")
+    plt.title("Click to highlight triangle and circumcircle")
     plt.xlim(np.array([minx, maxx]) + 0.05 * np.array([-1, 1]) * max_dx)
     plt.ylim(np.array([miny, maxy]) + 0.05 * np.array([-1, 1]) * max_dy)
     # plt.xticks([])
