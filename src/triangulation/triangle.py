@@ -43,7 +43,7 @@ class Triangle:
         t = (p1[0] * p2[1] - p1[1] * p2[0] + (p1[1] - p2[1])
              * point.x + (p2[0] - p1[0]) * point.y)
 
-        return s > 0 and t > 0 and (s + t) < 2 * self.area
+        return s >= 0 and t >= 0 and (s + t) <= 2 * self.area
 
     def update_circumcircle_and_area(self):
         self.circumcircle = Triangle._circumcircle(
