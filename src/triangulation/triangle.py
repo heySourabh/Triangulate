@@ -59,7 +59,10 @@ class Triangle:
 
         M = np.array([vab, vac])
         rhs = np.array([vab.dot(v1), vac.dot(v2)])
-        xy = np.linalg.solve(M, rhs) / 2
+        try:
+            xy = np.linalg.solve(M, rhs) / 2
+        except:
+            raise ValueError("Invalid circumcircle: Probably overlapping input nodes.")
         radius = np.sqrt(np.sum((a - xy)**2))
 
         return Circle(Point(xy[0], xy[1]), radius)
