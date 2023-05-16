@@ -93,6 +93,8 @@ def draw_triangle(triangle: Triangle, show_edges=True,
 
     def on_click(event):
         nonlocal clicked_point
+        if event.button != 1:
+            return
         x, y = event.xdata, event.ydata
         if x == None or y == None:
             if clicked_point != None:
